@@ -636,48 +636,7 @@ operator*(const complex<_Tp>& __z, const complex<_Tp>& __w)
     _Tp __bc = __b * __c;
     _Tp __x = __ac - __bd;
     _Tp __y = __ad + __bc;
-    if (__libcpp_isnan_or_builtin(__x) && __libcpp_isnan_or_builtin(__y))
-    {
-        bool __recalc = false;
-        if (__libcpp_isinf_or_builtin(__a) || __libcpp_isinf_or_builtin(__b))
-        {
-            __a = copysign(__libcpp_isinf_or_builtin(__a) ? _Tp(1) : _Tp(0), __a);
-            __b = copysign(__libcpp_isinf_or_builtin(__b) ? _Tp(1) : _Tp(0), __b);
-            if (__libcpp_isnan_or_builtin(__c))
-                __c = copysign(_Tp(0), __c);
-            if (__libcpp_isnan_or_builtin(__d))
-                __d = copysign(_Tp(0), __d);
-            __recalc = true;
-        }
-        if (__libcpp_isinf_or_builtin(__c) || __libcpp_isinf_or_builtin(__d))
-        {
-            __c = copysign(__libcpp_isinf_or_builtin(__c) ? _Tp(1) : _Tp(0), __c);
-            __d = copysign(__libcpp_isinf_or_builtin(__d) ? _Tp(1) : _Tp(0), __d);
-            if (__libcpp_isnan_or_builtin(__a))
-                __a = copysign(_Tp(0), __a);
-            if (__libcpp_isnan_or_builtin(__b))
-                __b = copysign(_Tp(0), __b);
-            __recalc = true;
-        }
-        if (!__recalc && (__libcpp_isinf_or_builtin(__ac) || __libcpp_isinf_or_builtin(__bd) ||
-                          __libcpp_isinf_or_builtin(__ad) || __libcpp_isinf_or_builtin(__bc)))
-        {
-            if (__libcpp_isnan_or_builtin(__a))
-                __a = copysign(_Tp(0), __a);
-            if (__libcpp_isnan_or_builtin(__b))
-                __b = copysign(_Tp(0), __b);
-            if (__libcpp_isnan_or_builtin(__c))
-                __c = copysign(_Tp(0), __c);
-            if (__libcpp_isnan_or_builtin(__d))
-                __d = copysign(_Tp(0), __d);
-            __recalc = true;
-        }
-        if (__recalc)
-        {
-            __x = _Tp(INFINITY) * (__a * __c - __b * __d);
-            __y = _Tp(INFINITY) * (__a * __d + __b * __c);
-        }
-    }
+
     return complex<_Tp>(__x, __y);
 }
 
